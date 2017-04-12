@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "express": "^4.15.2",
+    "next": "^2.0.0-beta.39",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "semantic-ui-react": "^0.67.1",
+    "socket.io": "^1.7.3"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start -p 3001"
+  }
+}
