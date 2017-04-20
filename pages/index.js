@@ -1,8 +1,26 @@
 import React from 'react'
 import Link from 'next/link'
 import { Container, Header, Card, Divider, Segment, Icon, Button, Image } from 'semantic-ui-react'
+import ListingItemCard from '../src/components/listingItemCard'
+require('isomorphic-fetch');
 
 export default class MyPage extends React.Component {
+  static async getInitialProps() {
+    let response = await fetch('http://localhost:3000/api/place/search',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          query: 'restaurant'
+        })
+      });
+    let places = [];
+    if (response.status == 200) {
+      places = await response.json();
+    }
+    return { places: places }; 
+  }
   render() {
     return (
       <Container>
@@ -25,9 +43,13 @@ export default class MyPage extends React.Component {
         <Header size='huge'>
           Popular Restaurant
           <Header.Subheader>
-            Recent accomodation listing
+            Nearby restaurant
           </Header.Subheader>
         </Header>
+
+        <Card.Group itemsPerRow={3}>
+          {this.props.places.map((value, index) => (<ListingItemCard place={value} key={index} />))}
+        </Card.Group>
       </Container>
     )
   }

@@ -8,6 +8,6 @@ RUN npm install pm2 -g
 RUN mkdir -p /usr/src/app && mv /tmp/node_modules /usr/src
 WORKDIR /usr/src/app
 COPY . /usr/src/app
-EXPOSE 3001
+EXPOSE 3000
 
-CMD npm start
+CMD pm2 start index.js

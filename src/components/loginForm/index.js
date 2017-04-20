@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { Button, Form, Container, Divider, Icon, Message } from 'semantic-ui-react'
 export default class LoginForm extends React.Component {
 	constructor(props) {
@@ -131,7 +132,7 @@ export default class LoginForm extends React.Component {
 				<Message attached='bottom' info>
 		
 					<Icon name='help' />
-					Forget your password?&nbsp;<a href="#">Click here</a>
+					Forget your password?&nbsp;<Link href="/forgot">Click here</Link>
 			
 				</Message>
 		
