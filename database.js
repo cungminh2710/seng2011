@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Promise = require('bluebird');
 mongoose.Promise = Promise;
 
-let hostname = 'localhost';
+let hostname = (process.env.NODE_ENV === 'production') ? 'mongo' : 'localhost';
 
 // import schema
 const {
