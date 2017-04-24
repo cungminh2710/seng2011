@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Message, Button, Header, Icon, Segment, Rating, List, Card, Image } from 'semantic-ui-react'
+import { Container, Message, Button, Header, Icon, Segment, Rating, List, Card, Image,Statistic } from 'semantic-ui-react'
 
 class ReviewCard extends React.Component {
 	render() {
@@ -51,14 +51,17 @@ export default class PlaceDetails extends React.Component {
 		return (
 			<Container textAlign="center">
 				<Header as='h2' icon>
-					<Icon name='food' color="blue" />
+					<Icon name='food' color="orange" />
 					{place.name}
 					<Header.Subheader>
 						<Rating icon="star" maxRating={place.rating} defaultRating={place.rating} disabled />
 					</Header.Subheader>
 
-					<Button color="orange" basic><a href={place.url} target="_blank"></a>View on Google Maps</Button>
+					<Button color="blue" basic><a href={place.url} target="_blank">View on Google Maps</a></Button>
 				</Header>
+				<List>
+							{place.opening_hours.weekday_text.map((value, index) => <List.Item>{value}</List.Item>)}	
+						</List>
 				<List size="large" animated>
 					<List.Item>
 						<List.Icon name='food' />
@@ -86,8 +89,12 @@ export default class PlaceDetails extends React.Component {
 							<a href={place.website} target="_blank">{place.website}</a>
 						</List.Content>
 					</List.Item>
+					<List.Item>
+						<List.Icon name='clock' />
+						<List.Content>{place.opening_hours.open_now ? 'Open Now' : 'Closed'}</List.Content>
+					</List.Item>
 				</List>
-
+				<Statistic value={place.reviews.length} label='Reviews' color="orange" />
 				<Card.Group itemsPerRow={2}>
 					{place.reviews.map((value, index) => (<ReviewCard review={value} key={index} />))}
 				</Card.Group>

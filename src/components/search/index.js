@@ -2,6 +2,8 @@ import React from 'react'
 import { Search, Grid, Header } from 'semantic-ui-react'
 import debounce from 'lodash/debounce'
 import map from 'lodash/map'
+import slice from 'lodash/slice'
+
 require('isomorphic-fetch');
 
 export default class SearchComponents extends React.Component {
@@ -10,7 +12,8 @@ export default class SearchComponents extends React.Component {
 	}
 	resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
 
-		// const handleResultSelect = (e, result) => this.setState({ value: result.id });
+	handleResultSelect = (e, result) => { window.location = '/place?place_id=' + result.id; };
+
 	found(results) {
 		console.log(results);
 		this.setState({
@@ -52,10 +55,11 @@ export default class SearchComponents extends React.Component {
 		return (
 			<Search
 				loading={isLoading}
-				// onResultSelect={this.handleResultSelect}
+				onResultSelect={this.handleResultSelect}
 				onSearchChange={this.handleSearchChange}
-				results={results}
+				results={slice(results, 0, 5)}
 				value={value}
+				minCharacters={2}
 				{...this.props}
 			/>
 		)

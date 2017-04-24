@@ -31,8 +31,8 @@ export default class Notification extends React.Component {
 							<Feed.Date>4 days ago</Feed.Date>
 						</Feed.Summary>
 						<Feed.Extra images>
-							<a><img src='https://react.semantic-ui.com/assets/images/wireframe/image.png' /></a>
-							<a><img src='https://react.semantic-ui.com/assets/images/wireframe/image.png' /></a>
+							<a><img src='https://react.semantic-ui.com/assets/images/avatar/small/matt.jpg' /></a>
+							<a><img src='https://react.semantic-ui.com/assets/images/avatar/small/stevie.jpg' /></a>
 						</Feed.Extra>
 						<Feed.Meta>
 							<Feed.Like>
