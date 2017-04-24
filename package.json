@@ -20,6 +20,7 @@
     "semantic-ui-react": "^0.68.0"
   },
   "scripts": {
-    "start": "pm2 start index.js"
+    "start": "pm2 start index.js",
+    "dev": "next dev"
   }
 }

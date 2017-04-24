@@ -6,3 +6,11 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+  snail:
+    image: quay.io/cungminh2710/seng2011:latest
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000

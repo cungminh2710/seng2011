@@ -1,3 +1,3 @@
 const auth = require('./auth');
-
-module.exports = { auth }
+const google = require('./google');
+module.exports = { auth, google }

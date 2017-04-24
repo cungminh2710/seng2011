@@ -23,12 +23,15 @@ app.prepare()
 
     server.post('/api/register', (req, res) => API.auth.register(req, res));
     server.post('/api/login', (req, res) => API.auth.login(req, res));
+    server.post('/api/place/autocomplete', API.google.autoCompleteEndpoint);
+    server.post('/api/place/details', API.google.findPlaceDetailsEndpoint);
+    server.post('/api/place/search', API.google.findPlaceNearbyEndpoint);
 
     server.get('*', (req, res) => handle(req, res));
 
-    server.listen(3001, err => {
+    server.listen(3000, err => {
       if (err) throw error;
 
-      console.log('> App running on port 3001');
+      console.log('> App running on port 3000');
     });
   });
