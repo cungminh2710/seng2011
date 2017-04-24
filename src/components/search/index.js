@@ -41,7 +41,7 @@ export default class SearchComponents extends React.Component {
 							title: result.name,
 							description: result.formatted_address,
 							image: result.icon,
-							price: result.rating
+							price: result.rating.toString()
 						})
 						)
 					)

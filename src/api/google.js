@@ -23,7 +23,7 @@ const autoComplete = location =>
         )));
 
 const findPlaceNearby = query =>
-    fetch(PLACE_NEARBY + '&type=restaurant&location=-33.8670522,151.1957362&radius=500&query=' + query)
+    fetch(PLACE_NEARBY + '&type=restaurant&location=-33.8670522,151.1957362&radius=50000&query=' + query)
     .then(res => {
         if (res.status >= 400)
             return Promise.reject(res.status);
