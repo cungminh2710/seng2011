@@ -53,7 +53,7 @@ export default class MyPage extends React.Component {
             </Header.Subheader>
           </Header>
           <Link prefetch href={this.state.createHref} ><Button color="orange" size="large">Create now!</Button></Link>
-          <Link prefetch href={this.state.joinHref} ><Button color="orange" size="large">Join an event</Button></Link>
+          <Link prefetch href={this.state.joinHref} ><Button size="large" color="blue" basic>Join an event</Button></Link>
         </Segment>
         
         <Divider horizontal />
@@ -61,7 +61,7 @@ export default class MyPage extends React.Component {
         <Header size='huge'>
           Popular Restaurant
           <Header.Subheader>
-            Nearby restaurant
+            Popular Restaurant around Sydney
           </Header.Subheader>
         </Header>
 

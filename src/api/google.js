@@ -1,9 +1,9 @@
 require('isomorphic-fetch');
 
-const API_KEY = 'AIzaSyBbf8SUfyWfP_6UzhQx74CkMyn7sJwIMcw';
+const API_KEY = 'AIzaSyATuMDEc8DiT5o0zV8PyrefbJSKsEo9740';
 const GOOGLE_MAP_API = 'https://maps.googleapis.com/maps/api';
 const AUTO_COMPLETE_ENDPOINT = GOOGLE_MAP_API + '/place/autocomplete/json?key=' + API_KEY;
-const PLACE_NEARBY = GOOGLE_MAP_API + '/place/nearbysearch/json?key=' + API_KEY;
+const PLACE_NEARBY = GOOGLE_MAP_API + '/place/textsearch/json?key=' + API_KEY;
 const PLACE_DETAILS = GOOGLE_MAP_API + '/place/details/json?key=' + API_KEY;
 
 const autoComplete = location =>
@@ -33,12 +33,14 @@ const findPlaceNearby = query =>
 
 const findPlaceDetails = id =>
     fetch(PLACE_DETAILS + '&placeid=' + id)
-    .then(res => {
-        if (res.status >= 400)
-            return Promise.reject(res.status);
-        return res.json();
-    })
-    .then(response => Promise.resolve(response.result));
+        .then(res => {
+            console.log(PLACE_DETAILS + '&placeid=' + id);
+            if (res.status >= 400)
+                return Promise.reject(res.status);
+            return res.json();
+        })
+        .then(response => Promise.resolve(response.result))
+        .catch(error => res.sendStatus(error.message));
 
 const autoCompleteEndpoint = (req, res) => {
     autoComplete(req.body.location)
@@ -53,7 +55,7 @@ const findPlaceNearbyEndpoint = (req, res) => {
 }
 
 const findPlaceDetailsEndpoint = (req, res) => {
-    findPlaceNearby(req.body.placeid)
+    findPlaceDetails(req.body.placeid)
         .then(results => res.json(results))
         .catch(error => res.sendStatus(error.message))
 }
