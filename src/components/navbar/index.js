@@ -1,6 +1,7 @@
 import React from 'react'
 import { Menu, Container, Input } from 'semantic-ui-react'
 import Link from 'next/link'
+import Search from '../search'
 
 const menuStyle = {
 	height: '66px',
@@ -27,7 +28,9 @@ export default class Navbar extends React.Component {
 				</a>
 				<Menu.Menu position='right'>
 					<Menu.Item>
-						<Input icon='search' placeholder='Search location' />
+						<Link prefetch href="/filter" style={itemStyle}>
+							<a style={itemStyle}>Find a restaurant</a>
+						</Link>
 					</Menu.Item>	
 					<Menu.Item >
 						<Link prefetch href="/account" style={itemStyle}>

@@ -1,25 +1,43 @@
 import React from 'react'
 import Link from 'next/link'
 import { Container, Header, Card, Divider, Segment, Icon, Button, Image } from 'semantic-ui-react'
+import { isLogin } from '../src/utils'
 import ListingItemCard from '../src/components/listingItemCard'
 require('isomorphic-fetch');
 
 export default class MyPage extends React.Component {
   static async getInitialProps() {
-    let response = await fetch('http://localhost:3000/api/place/search',{
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          query: 'restaurant'
-        })
-      });
+    let response = await fetch('http://localhost:3000/api/place/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: 'restaurant'
+      })
+    });
     let places = [];
     if (response.status == 200) {
       places = await response.json();
     }
-    return { places: places }; 
+    return { places: places };
+  }
+  constructor(props) {
+    super(props);
+    this.state = { joinHref: '/account', createHref: '/account' };
+  }
+  componentDidMount() {
+    if (isLogin()) {
+      this.setState({
+        joinHref: '/event/join',
+        createHref: '/event/add'
+      });
+    } else {
+      this.setState({
+        joinHref: '/account',
+        createHref: '/account'
+      });
+    }
   }
   render() {
     return (
@@ -34,8 +52,8 @@ export default class MyPage extends React.Component {
               Create food events and find restaurants as a team
             </Header.Subheader>
           </Header>
-          <Link prefetch href="/account" ><Button color="orange" size="large">Create now!</Button></Link>
-          <Link prefetch href="/account" ><Button color="orange" size="large">Join an event</Button></Link>
+          <Link prefetch href={this.state.createHref} ><Button color="orange" size="large">Create now!</Button></Link>
+          <Link prefetch href={this.state.joinHref} ><Button size="large" color="blue" basic>Join an event</Button></Link>
         </Segment>
         
         <Divider horizontal />
@@ -43,7 +61,7 @@ export default class MyPage extends React.Component {
         <Header size='huge'>
           Popular Restaurant
           <Header.Subheader>
-            Nearby restaurant
+            Popular Restaurant around Sydney
           </Header.Subheader>
         </Header>
 

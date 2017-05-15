@@ -59,7 +59,7 @@ const findPlaceNearbyEndpoint = (req, res) => {
 };
 
 const findPlaceDetailsEndpoint = (req, res) => {
-    findPlaceNearby(req.body.placeid)
+    findPlaceDetails(req.body.placeid)
         .then(results => res.json(results))
         .catch(error => res.sendStatus(error.message));
 };
