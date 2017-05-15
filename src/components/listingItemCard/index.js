@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Icon, Image  } from 'semantic-ui-react'
 
 const cardStyle = {
-	boxShadow: '0 20px 20px rgba(0,0,0,.08)',
+	boxShadow: '0 5px 5px rgba(0,0,0,.08)',
 	whiteSpace: 'normal',
 	WebkitAnimation: 'scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both',
 	MozAnimation: 'scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both',
