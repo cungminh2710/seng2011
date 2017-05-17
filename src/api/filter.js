@@ -9,28 +9,33 @@ const _ = require("lodash");
  *  @returns {Object[]} Array of filtered restaurants
  */
 const filter = options => {
-    // Prepare data
-    let temp = _.chain(data);
+    let temp = [];
 
-    // Filter by rating
-    if (options.rating !== null)
+    for (let i = 0; i < data.length; i++) {
+        let place = data[i];
+        // Filter by rating
         // Filter with following predicate:
         //      place.rating >= options.rating
         //      Rating of the restaurant must be greater or equal to desired rating
-        temp = temp.filter(place => place.rating >= options.rating);
+        if (options.rating !== null && place.rating >= options.rating)
+            temp.push(place);
+    }
 
-    // Filter by price
-    if (
-        options.price_level !== null &&
-        options.price_level > 0 &&
-        options.price_level < 5
-    )
+    for (let i = 0; i < temp.length; i++) {
+        let place = temp[i];
+        // Filter by price
         // Filter with following predicate:
         //      place.price_level === options.price_level
-        //
-        temp = temp.filter(place => place.price_level === options.price_level);
+        if (
+            options.price_level !== null &&
+            options.price_level > 0 &&
+            options.price_level < 5 &&
+            place.price_level === options.price_level
+        )
+            temp.splice(i, 1); // Remove the element from array
+    }
 
-    return temp.value();
+    return temp;
 };
 
 const filterEndpoint = (req, res) =>

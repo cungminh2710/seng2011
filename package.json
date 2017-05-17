@@ -21,6 +21,7 @@
   },
   "scripts": {
     "start": "pm2 start index.js",
+    "stop": "pm2 kill",
     "dev": "next dev"
   }
 }
