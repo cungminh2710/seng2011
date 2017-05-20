@@ -32,7 +32,7 @@ export default class ListingItemCard extends React.Component {
                         />
                     </Card.Meta>
                     <Card.Description>
-                        {place.formatted_address}
+                        {place.vicinity}
                     </Card.Description>
                 </Card.Content>
 
