@@ -13,26 +13,21 @@ const filter = options => {
 
     for (let i = 0; i < data.length; i++) {
         let place = data[i];
-        // Filter by rating
-        // Filter with following predicate:
-        //      place.rating >= options.rating
-        //      Rating of the restaurant must be greater or equal to desired rating
-        if (options.rating !== null && place.rating >= options.rating)
-            temp.push(place);
-    }
-
-    for (let i = 0; i < temp.length; i++) {
-        let place = temp[i];
-        // Filter by price
-        // Filter with following predicate:
-        //      place.price_level === options.price_level
-        if (
-            options.price_level !== null &&
+        let ratingPredicate = options.rating !== null && place.rating >= options.rating;
+        let pricePredicate = options.price_level !== null &&
             options.price_level > 0 &&
             options.price_level < 5 &&
-            place.price_level === options.price_level
-        )
-            temp.splice(i, 1); // Remove the element from array
+            place.price_level === options.price_level;
+
+        // If filter by both predicate
+        if (ratingPredicate && pricePredicate)
+            temp.push(place);
+        //IF just by rating
+        else if (ratingPredicate)
+            temp.push(place);
+        // Or just price
+        else if (pricePredicate)
+            temp.push(place);
     }
 
     return temp;
@@ -40,7 +35,9 @@ const filter = options => {
 
 const filterEndpoint = (req, res) =>
     filter(req.body)
-        .then(result => res.json(result))
-        .catch(error => res.sendStatus(error.message));
+    .then(result => res.json(result))
+    .catch(error => res.sendStatus(error.message));
 
-module.exports = { filterEndpoint };
+module.exports = {
+    filterEndpoint
+};
