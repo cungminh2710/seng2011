@@ -1,6 +1,6 @@
 const data = require("../../data.json");
 const _ = require("lodash");
-
+const Promise = require("bluebird");
 /**
  *  Filter restaurants
  *  @param {Object} options  Filter options
@@ -10,33 +10,33 @@ const _ = require("lodash");
  */
 const filter = options => {
     let temp = [];
-
     for (let i = 0; i < data.length; i++) {
         let place = data[i];
-        let ratingPredicate = options.rating !== null && place.rating >= options.rating;
-        let pricePredicate = options.price_level !== null &&
-            options.price_level > 0 &&
+        let ratingPredicate =
+            options.rating !== null && place.rating >= options.rating;
+        let pricePredicate =
+            options.price_level !== null &&
+            options.price_level >= 0 &&
             options.price_level < 5 &&
             place.price_level === options.price_level;
 
         // If filter by both predicate
-        if (ratingPredicate && pricePredicate)
-            temp.push(place);
-        //IF just by rating
-        else if (ratingPredicate)
-            temp.push(place);
-        // Or just price
-        else if (pricePredicate)
-            temp.push(place);
+        if (ratingPredicate && pricePredicate) temp.push(place);
+        // else if (ratingPredicate)
+        //     //IF just by rating
+        //     temp.push(place);
+        // else if (pricePredicate)
+        //     // Or just price
+        //     temp.push(place);
     }
 
-    return temp;
+    return Promise.resolve(temp);
 };
 
 const filterEndpoint = (req, res) =>
     filter(req.body)
-    .then(result => res.json(result))
-    .catch(error => res.sendStatus(error.message));
+        .then(result => res.json(result))
+        .catch(error => res.sendStatus(error.message));
 
 module.exports = {
     filterEndpoint

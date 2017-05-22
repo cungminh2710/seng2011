@@ -27,8 +27,8 @@ export default class ListingItemCard extends React.Component {
                         <Rating
                             disabled
                             icon="star"
-                            defaultRating={place.rating}
-                            maxRating={place.rating}
+                            rating={place.rating}
+                            maxRating={5}
                         />
                     </Card.Meta>
                     <Card.Description>
