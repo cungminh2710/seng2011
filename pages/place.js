@@ -172,7 +172,7 @@ export default class PlaceDetails extends React.Component {
                             />
                             <Rating
                                 icon="star"
-                                maxRating={place.rating}
+                                maxRating={5}
                                 defaultRating={place.rating}
                                 disabled
                             />
@@ -186,8 +186,8 @@ export default class PlaceDetails extends React.Component {
                             />
                             <Rating
                                 icon="heart"
-                                maxRating={place.price_level}
-                                defaultRating={place.price_level}
+                                maxRating={4}
+                                defaultRating={5 - place.price_level}
                                 disabled
                             />
 

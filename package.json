@@ -23,6 +23,7 @@
   "scripts": {
     "start": "pm2 start index.js",
     "stop": "pm2 kill",
+    "build": "next build",
     "dev": "next dev"
   }
 }
