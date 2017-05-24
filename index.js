@@ -21,6 +21,14 @@ app.prepare().then(_ => {
     );
     server.use(bodyParser.json());
     server.use(cookieParser());
+    server.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept"
+        );
+        next();
+    });
 
     // server.post("/api/register", (req, res) => API.auth.register(req, res));
     // server.post("/api/login", (req, res) => API.auth.login(req, res));
