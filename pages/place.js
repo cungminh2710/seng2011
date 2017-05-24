@@ -79,15 +79,18 @@ const DetailGoogleMap = withScriptjs(
 export default class PlaceDetails extends React.Component {
     static async getInitialProps(req) {
         let place_id = req.query.place_id;
-        let response = await fetch("http://localhost:3000/api/place/details", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                placeid: place_id
-            })
-        });
+        let response = await fetch(
+            "http://54.160.211.66:8000/api/place/details",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    placeid: place_id
+                })
+            }
+        );
         let place = {};
         if (response.status == 200) {
             place = await response.json();
