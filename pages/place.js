@@ -13,7 +13,9 @@ import {
     Grid,
     List,
     Label,
-    Loader
+    Loader,
+    Dropdown,
+    Modal
 } from "semantic-ui-react";
 
 class ReviewCard extends React.Component {
@@ -79,23 +81,24 @@ const DetailGoogleMap = withScriptjs(
 export default class PlaceDetails extends React.Component {
     static async getInitialProps(req) {
         let place_id = req.query.place_id;
-        let response = await fetch(
-            "http://54.160.211.66:8000/api/place/details",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    placeid: place_id
-                })
-            }
-        );
+        let response = await fetch("http://localhost:8000/api/place/details", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                placeid: place_id
+            })
+        });
         let place = {};
         if (response.status == 200) {
             place = await response.json();
         }
+        if (!place.reviews) place.reviews = [];
         return { place: place };
+    }
+    handleClose() {
+        window.location.href = "/event?name=Nurse foodies&_id=A123&add=true";
     }
     render() {
         let { place } = this.props;
@@ -143,7 +146,48 @@ export default class PlaceDetails extends React.Component {
                             <span>{place.formatted_address}</span>
 
                             <Divider horizontal />
-                            <Button color="green" basic>Add to Event</Button>
+                            <Modal
+                                trigger={
+                                    <Button color="green">
+                                        Add to Event
+                                    </Button>
+                                }
+                                basic
+                                closeOnDimmerClick={false}
+                                size="small"
+                            >
+                                <Header
+                                    icon="browser"
+                                    content="You have one event"
+                                />
+                                <Modal.Content>
+
+                                    Do you want to add this restaurant to {" "}
+                                    <Dropdown
+                                        upward
+                                        floating
+                                        inline
+                                        options={[
+                                            {
+                                                key: "Nurse foodies",
+                                                text: "Nurse foodies",
+                                                value: "Nurse foodies"
+                                            }
+                                        ]}
+                                        defaultValue="Nurse foodies"
+                                    />
+
+                                </Modal.Content>
+                                <Modal.Actions>
+                                    <Button
+                                        color="green"
+                                        onClick={this.handleClose}
+                                        inverted
+                                    >
+                                        <Icon name="checkmark" /> Do it
+                                    </Button>
+                                </Modal.Actions>
+                            </Modal>
                             <Divider horizontal />
                             <Label
                                 as="a"
@@ -243,13 +287,20 @@ export default class PlaceDetails extends React.Component {
                         />
                     </Grid.Column>
                 </Grid>
-                <Container text textAlign="center">
+
+                <Divider horizontal />
+                <Container
+                    textAlign="center"
+                    fluid
+                    // style={{ padding: 100 }}
+                >
                     <Statistic
                         value={place.reviews.length}
                         label="Reviews"
                         color="orange"
                     />
-                    <Card.Group itemsPerRow={2}>
+                    <Divider />
+                    <Card.Group itemsPerRow={3}>
                         {place.reviews.map((value, index) => (
                             <ReviewCard review={value} key={index} />
                         ))}

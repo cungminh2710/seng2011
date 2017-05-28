@@ -11,7 +11,6 @@ import {
 import Search from "../search";
 import { logout } from "../../utils";
 import Event from "./events";
-import Notification from "./notification";
 
 export default class MyAccount extends React.Component {
     constructor(props) {
@@ -30,14 +29,11 @@ export default class MyAccount extends React.Component {
         let { view } = this.state;
         let viewComponent;
         switch (view) {
-            case "notification":
-                viewComponent = <Notification />;
-                break;
             case "events":
                 viewComponent = <Event />;
                 break;
             default:
-                viewComponent = <Notification />;
+                viewComponent = <Event />;
                 break;
         }
         return (
@@ -53,15 +49,6 @@ export default class MyAccount extends React.Component {
                             color="orange"
                             size="large"
                         >
-                            <Button
-                                onClick={this.switchView("notification")}
-                                icon="inbox"
-                                content="Notifications"
-                                labelPosition="right"
-                                active={
-                                    view === "notification" || view !== "events"
-                                }
-                            />
                             <Button
                                 onClick={this.switchView("events")}
                                 icon="calendar"

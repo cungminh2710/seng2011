@@ -33,6 +33,22 @@ const filter = options => {
     return Promise.resolve(temp);
 };
 
+const sort = (array, options) => {
+    let swap, n = array.length;
+    for (let c = 0; c < n - 1; c++) {
+        for (let d = 0; d < n - c - 1; d++) {
+            if (array[d] > array[d + 1]) {
+                /* For decreasing order use < */
+                swap = array[d];
+                array[d] = array[d + 1];
+                array[d + 1] = swap;
+            }
+        }
+    }
+
+    return array;
+};
+
 const filterEndpoint = (req, res) =>
     filter(req.body)
         .then(result => res.json(result))

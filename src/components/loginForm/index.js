@@ -11,17 +11,25 @@ import {
 export default class LoginForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { view: "login", loading: false };
+        this.state = {
+            view: "login",
+            loading: false
+        };
     }
     toggleView(event) {
         event.preventDefault();
         let view = this.state.view === "register" ? "login" : "register";
-        this.setState({ view, response: null });
+        this.setState({
+            view,
+            response: null
+        });
     }
     onSubmit(event) {
         event.preventDefault();
 
-        this.setState({ loading: true });
+        this.setState({
+            loading: true
+        });
         let data = {
             password: this.state.password,
             email: this.state.email,
@@ -31,7 +39,11 @@ export default class LoginForm extends React.Component {
             if (json.success) {
                 localStorage.setItem("token", json.token);
                 window.location = "/";
-            } else this.setState({ response: json, loading: false });
+            } else
+                this.setState({
+                    response: json,
+                    loading: false
+                });
         };
         let errorHandler = err => {
             this.setState({
@@ -129,6 +141,7 @@ export default class LoginForm extends React.Component {
                         required
                         onChange={this.onChange.bind(this)}
                     />
+                    {" "}
                     <Form.Input
                         type="password"
                         name="password"
@@ -136,15 +149,18 @@ export default class LoginForm extends React.Component {
                         required
                         onChange={this.onChange.bind(this)}
                     />
+                    {" "}
                     {thirdField}
+                    {" "}
                     <Button
                         type="submit"
                         onClick={this.onSubmit.bind(this)}
                         color="orange"
                         loading={this.state.loading}
                     >
-                        Login with Email
+                        Login with Email{" "}
                     </Button>
+                    {" "}
                     <Message
                         error
                         header="Uh oh ..."
@@ -154,18 +170,20 @@ export default class LoginForm extends React.Component {
                                 : ""
                         }
                     />
+                    {" "}
                     <p>
                         <a href="#" onClick={this.toggleView.bind(this)}>
-                            {dict[view].toggleText}
+                            {" "}{dict[view].toggleText}{" "}
                         </a>
+                        {" "}
                     </p>
 
-                </Form>
-                <Message attached="bottom" info>
+                </Form> <Message attached="bottom" info>
 
                     <Icon name="help" />
-                    Forget your password?&nbsp;
-                    <Link href="/forgot">Click here</Link>
+                    Forget your password ? & nbsp;
+                    {" "}
+                    <Link href="/forgot"> Click here </Link>
 
                 </Message>
 

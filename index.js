@@ -30,8 +30,8 @@ app.prepare().then(_ => {
         next();
     });
 
-    // server.post("/api/register", (req, res) => API.auth.register(req, res));
-    // server.post("/api/login", (req, res) => API.auth.login(req, res));
+    server.post("/api/register", (req, res) => API.auth.register(req, res));
+    server.post("/api/login", (req, res) => API.auth.login(req, res));
     server.post("/api/place/autocomplete", API.google.autoCompleteEndpoint);
     server.post("/api/place/details", API.google.findPlaceDetailsEndpoint);
     server.post("/api/place/search", API.google.findPlaceNearbyEndpoint);

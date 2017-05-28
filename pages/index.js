@@ -16,18 +16,15 @@ require("isomorphic-fetch");
 
 export default class MyPage extends React.Component {
     static async getInitialProps() {
-        let response = await fetch(
-            "http://54.160.211.66:8000/api/place/search",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    query: "restaurant"
-                })
-            }
-        );
+        let response = await fetch("http://localhost:8000/api/place/search", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                query: "restaurant"
+            })
+        });
         let places = [];
         if (response.status == 200) {
             places = await response.json();
